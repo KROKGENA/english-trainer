@@ -1504,3 +1504,7 @@ select {
     display: none;
   }
 }
+/* STEP 1 — аккуратное скрытие панелей */
+.panel-collapsed {
+  display: none !important;
+}
