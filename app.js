@@ -539,3 +539,11 @@ bindEvents();
 setMode("typing");
 setDirection("en_ru");
 renderCard();
+
+if (window.innerWidth <= 680) {
+  state.settingsOpen = false;
+  el.heroPanel.classList.add("panel-collapsed");
+  el.sidebarPanel.classList.add("panel-collapsed");
+} else {
+  state.settingsOpen = true;
+}
