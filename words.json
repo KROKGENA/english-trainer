@@ -1,22 +1,29 @@
 [
-  {
-    "english": "warehouse",
-    "russian": "склад",
-    "definition": "a building where goods are stored"
-  },
-  {
-    "english": "driver",
-    "russian": "водитель",
-    "definition": "a person who drives a vehicle"
-  },
-  {
-    "english": "delivery",
-    "russian": "доставка",
-    "definition": "the act of taking goods to a place"
-  },
-  {
-    "english": "order",
-    "russian": "заказ",
-    "definition": "a request to buy something"
-  }
+{
+"english":"warehouse",
+"russian":"склад",
+"icon":"🏭",
+"definition":"a building where goods are stored"
+},
+
+{
+"english":"driver",
+"russian":"водитель",
+"icon":"🚚",
+"definition":"a person who drives a vehicle"
+},
+
+{
+"english":"delivery",
+"russian":"доставка",
+"icon":"📦",
+"definition":"the act of taking goods to a place"
+},
+
+{
+"english":"order",
+"russian":"заказ",
+"icon":"📋",
+"definition":"a request to buy something"
+}
 ]
