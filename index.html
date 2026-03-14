@@ -1,1 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Trainer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    :root {
+      --bg-1: #0f172a;
+      --bg-2: #1e293b;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --danger: #f97316;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #1d4ed8 0%, transparent 28%),
+        radial-gradient(circle at top right, #0ea5e9 0%, transparent 24%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .counter {
+      font-size: 14px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.08);
+      padding: 10px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .progress-wrap {
+      margin-bottom: 18px;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), #60a5fa);
+      transition: width 0.3s ease;
+    }
+
+    .word-card {
+      text-align: center;
+      padding: 10px 0 6px;
+    }
+
+    .icon {
+      font-size: 84px;
+      line-height: 1;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
+      user-select: none;
+    }
+
+    .word {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+      min-height: 20px;
+    }
+
+    .answer {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      padding: 0 10px;
+    }
+
+    .translation {
+      display: none;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fde68a;
+      text-align: center;
+    }
+
+    .translation.show {
+      display: block;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-show {
+      background: linear-gradient(135deg, #38bdf8, #3b82f6);
+      color: #fff;
+    }
+
+    .btn-know {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+    }
+
+    .btn-dontknow {
+      background: linear-gradient(135deg, #fb923c, #f97316);
+      color: #fff;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 16px;
+      line-height: 1.4;
+    }
+
+    .finish {
+      display: none;
+      text-align: center;
+      padding: 14px 0 6px;
+    }
+
+    .finish.show {
+      display: block;
+    }
+
+    .finish-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .finish-text {
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 16px;
+        border-radius: 22px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .word {
+        font-size: 32px;
+      }
+
+      .icon {
+        font-size: 72px;
+      }
+
+      .translation {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 15px 16px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .stat-value {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="card">
+      <div id="mainScreen">
+        <div class="topbar">
+          <div>
+            <div class="title">English Trainer</div>
+            <div class="subtitle">Простой тренажёр слов с ассоциациями</div>
+          </div>
+          <div class="counter" id="counter">1 / 10</div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label">Прогресс</div>
+          <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="word-card">
+          <div class="icon" id="icon">📦</div>
+          <div class="word" id="word">order</div>
+          <div class="hint" id="hint">Посмотри на слово и попробуй вспомнить перевод сам</div>
+
+          <div class="answer">
+            <div class="translation" id="translation">заказ</div>
+          </div>
+
+          <div class="buttons">
+            <button class="btn-show" id="showBtn">Показать перевод</button>
+            <button class="btn-know" id="knowBtn">Знаю</button>
+            <button class="btn-dontknow" id="dontKnowBtn">Не знаю</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value" id="doneCount">0</div>
+            <div class="stat-label">Пройдено</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="knowCount">0</div>
+            <div class="stat-label">Знаю</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="dontKnowCount">0</div>
+            <div class="stat-label">Не знаю</div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          Сначала делаем просто и красиво. Потом добавим картинки, ввод ответа, звук и повторы ошибок.
+        </div>
+      </div>
+
+      <div class="finish" id="finishScreen">
+        <div class="finish-title">Готово</div>
+        <div class="finish-text" id="finishText"></div>
+        <button class="btn-restart" id="restartBtn">Пройти ещё раз</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const words = [
+      { english: "order", translation: "заказ", icon: "📋" },
+      { english: "warehouse", translation: "склад", icon: "🏭" },
+      { english: "driver", translation: "водитель", icon: "🚚" },
+      { english: "loading", translation: "погрузка", icon: "📦" },
+      { english: "delivery", translation: "доставка", icon: "🚛" },
+      { english: "document", translation: "документ", icon: "📄" },
+      { english: "client", translation: "клиент", icon: "🤝" },
+      { english: "box", translation: "коробка", icon: "🧰" },
+      { english: "pallet", translation: "палета", icon: "🪵" },
+      { english: "weight", translation: "вес", icon: "⚖️" }
+    ];
+
+    let currentIndex = 0;
+    let done = 0;
+    let know = 0;
+    let dontKnow = 0;
+
+    const wordEl = document.getElementById("word");
+    const translationEl = document.getElementById("translation");
+    const iconEl = document.getElementById("icon");
+    const counterEl = document.getElementById("counter");
+    const progressBarEl = document.getElementById("progressBar");
+
+    const doneCountEl = document.getElementById("doneCount");
+    const knowCountEl = document.getElementById("knowCount");
+    const dontKnowCountEl = document.getElementById("dontKnowCount");
+
+    const showBtn = document.getElementById("showBtn");
+    const knowBtn = document.getElementById("knowBtn");
+    const dontKnowBtn = document.getElementById("dontKnowBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const mainScreen = document.getElementById("mainScreen");
+    const finishScreen = document.getElementById("finishScreen");
+    const finishText = document.getElementById("finishText");
+
+    function renderWord() {
+      const item = words[currentIndex];
+
+      wordEl.textContent = item.english;
+      translationEl.textContent = item.translation;
+      iconEl.textContent = item.icon;
+
+      translationEl.classList.remove("show");
+      counterEl.textContent = `${currentIndex + 1} / ${words.length}`;
+
+      const progress = (done / words.length) * 100;
+      progressBarEl.style.width = `${progress}%`;
+
+      doneCountEl.textContent = done;
+      knowCountEl.textContent = know;
+      dontKnowCountEl.textContent = dontKnow;
+    }
+
+    function showTranslation() {
+      translationEl.classList.add("show");
+    }
+
+    function nextWord() {
+      currentIndex++;
+
+      if (currentIndex >= words.length) {
+        finishTraining();
+        return;
+      }
+
+      renderWord();
+    }
+
+    function markKnow() {
+      know++;
+      done++;
+      nextWord();
+    }
+
+    function markDontKnow() {
+      dontKnow++;
+      done++;
+      nextWord();
+    }
+
+    function finishTraining() {
+      progressBarEl.style.width = "100%";
+      doneCountEl.textContent = done;
+      knowCountEl.textContent = know;
+      dontKnowCountEl.textContent = dontKnow;
+
+      mainScreen.style.display = "none";
+      finishScreen.classList.add("show");
+
+      finishText.innerHTML = `
+        Ты прошёл <b>${words.length}</b> слов.<br><br>
+        Знаю: <b>${know}</b><br>
+        Не знаю: <b>${dontKnow}</b><br><br>
+        Нормально для первого шага. Дальше можно добавить повтор только ошибок.
+      `;
+    }
+
+    function restartTraining() {
+      currentIndex = 0;
+      done = 0;
+      know = 0;
+      dontKnow = 0;
+
+      mainScreen.style.display = "block";
+      finishScreen.classList.remove("show");
+
+      renderWord();
+    }
+
+    showBtn.addEventListener("click", showTranslation);
+    knowBtn.addEventListener("click", markKnow);
+    dontKnowBtn.addEventListener("click", markDontKnow);
+    restartBtn.addEventListener("click", restartTraining);
+
+    renderWord();
+  </script>
+</body>
+</html>
