@@ -2,65 +2,85 @@ let words = []
 let current = 0
 
 const wordElement = document.getElementById("word")
+const iconElement = document.getElementById("icon")
 const answerInput = document.getElementById("answer")
 const resultElement = document.getElementById("result")
 
 async function loadWords(){
 
-    const response = await fetch("words.json")
+const response = await fetch("words.json")
 
-    words = await response.json()
+words = await response.json()
 
-    showWord()
+showWord()
+
+}
+
+function normalize(text){
+
+return text
+.toLowerCase()
+.trim()
+.replace("ё","е")
 
 }
 
 function showWord(){
 
-    const word = words[current]
+const word = words[current]
 
-    wordElement.innerText = word.english
+wordElement.innerText = word.english
 
-    answerInput.value = ""
+iconElement.innerText = word.icon || "📦"
 
-    resultElement.innerText = ""
+answerInput.value=""
+
+resultElement.innerText=""
+
+resultElement.className=""
 
 }
 
 function checkAnswer(){
 
-    const word = words[current]
+const word = words[current]
 
-    const answer = answerInput.value.toLowerCase().trim()
+const userAnswer = normalize(answerInput.value)
 
-    if(answer === word.russian){
+const correct = normalize(word.russian)
 
-        resultElement.innerText = "✔ правильно"
+if(userAnswer === correct){
 
-    } else {
+resultElement.innerText="✔ Правильно"
 
-        resultElement.innerText = "✘ правильно: " + word.russian
+resultElement.className="correct"
 
-    }
+}else{
+
+resultElement.innerText="✘ Правильно: "+word.russian
+
+resultElement.className="wrong"
+
+}
 
 }
 
 function nextWord(){
 
-    current++
+current++
 
-    if(current >= words.length){
+if(current>=words.length){
 
-        current = 0
-
-    }
-
-    showWord()
+current=0
 
 }
 
-document.getElementById("check").onclick = checkAnswer
-document.getElementById("know").onclick = nextWord
-document.getElementById("dontknow").onclick = nextWord
+showWord()
+
+}
+
+document.getElementById("check").onclick=checkAnswer
+document.getElementById("know").onclick=nextWord
+document.getElementById("dontknow").onclick=nextWord
 
 loadWords()
