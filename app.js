@@ -362,8 +362,8 @@ function skipWord() {
 
 function toggleSettings() {
   state.settingsOpen = !state.settingsOpen;
-  el.heroPanel.classList.toggle("hidden", !state.settingsOpen);
-  el.sidebarPanel.classList.toggle("hidden", !state.settingsOpen);
+  el.heroPanel.classList.toggle("panel-collapsed", !state.settingsOpen);
+  el.sidebarPanel.classList.toggle("panel-collapsed", !state.settingsOpen);
 }
 
 function showHint() {
