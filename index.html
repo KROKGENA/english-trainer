@@ -1,43 +1,208 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>English Trainer</title>
-
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Trainer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="app-shell">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
 
-<div class="app">
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>English Trainer</h1>
+          <p class="topbar-subtitle">
+            Слова, смысл и начало разговорной практики
+          </p>
+        </div>
 
-<h1>English Trainer</h1>
+        <div class="topbar-actions">
+          <button id="openSettingsBtn" class="ghost-btn">Настройки</button>
+        </div>
+      </header>
 
-<div id="card">
+      <section class="status-panel">
+        <div class="status-chip">
+          <span class="status-label">Сессия</span>
+          <span class="status-value" id="sessionCounter">0 / 0</span>
+        </div>
 
-<div id="word"></div>
+        <div class="status-chip">
+          <span class="status-label">Верно</span>
+          <span class="status-value success" id="correctCount">0</span>
+        </div>
 
-<input id="answer" placeholder="Введите ответ">
+        <div class="status-chip">
+          <span class="status-label">Ошибки</span>
+          <span class="status-value danger" id="wrongCount">0</span>
+        </div>
 
-<div class="buttons">
+        <div class="status-chip">
+          <span class="status-label">Самооценка</span>
+          <span class="status-value" id="selfCount">0</span>
+        </div>
+      </section>
 
-<button id="check">Проверить</button>
-<button id="know">Знаю</button>
-<button id="dontknow">Не знаю</button>
+      <section class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </section>
 
-</div>
+      <section class="settings-panel hidden" id="settingsPanel">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2>Настройки тренировки</h2>
+            <button id="closeSettingsBtn" class="ghost-btn small">Закрыть</button>
+          </div>
 
-<div id="result"></div>
+          <div class="settings-grid">
+            <div class="settings-block">
+              <h3>Направления</h3>
+              <label class="check-row">
+                <input type="checkbox" id="dirEnRu" checked />
+                <span>English → Russian</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" id="dirRuEn" checked />
+                <span>Russian → English</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" id="dirEnEn" checked />
+                <span>English → English</span>
+              </label>
+            </div>
 
-</div>
+            <div class="settings-block">
+              <h3>Способы ответа</h3>
+              <label class="check-row">
+                <input type="checkbox" id="modeTyping" checked />
+                <span>Ввод</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" id="modeSelf" checked />
+                <span>Знаю / Не знаю</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" id="modeSpeaking" checked />
+                <span>Голос</span>
+              </label>
+            </div>
 
-</div>
+            <div class="settings-block">
+              <h3>Параметры</h3>
 
-<script src="app.js"></script>
+              <label class="check-row">
+                <span>Количество заданий</span>
+                <select id="sessionSize">
+                  <option value="8">8</option>
+                  <option value="12" selected>12</option>
+                  <option value="16">16</option>
+                  <option value="20">20</option>
+                </select>
+              </label>
 
+              <label class="check-row">
+                <span>Перемешивание</span>
+                <select id="mixMode">
+                  <option value="smart" selected>Умное</option>
+                  <option value="random">Случайное</option>
+                </select>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" id="autoSpeakWord" checked />
+                <span>Автоозвучка английского слова</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-footer">
+            <button id="startSessionBtn" class="primary-btn">Начать новую тренировку</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="trainer-card" id="trainerCard">
+        <div class="task-topline">
+          <div class="task-badge" id="taskDirection">EN → RU</div>
+          <div class="task-badge secondary" id="taskMode">Ввод</div>
+        </div>
+
+        <div class="visual-zone">
+          <div class="emoji" id="cardIcon">📦</div>
+          <div class="prompt-label" id="promptLabel">Переведи слово</div>
+          <div class="prompt-main" id="promptMain">warehouse</div>
+          <div class="prompt-sub" id="promptSub">Попробуй ответить сам, не спеши открывать подсказку</div>
+        </div>
+
+        <div class="definition-box hidden" id="definitionBox"></div>
+
+        <div class="answer-zone" id="typingArea">
+          <input
+            id="answerInput"
+            class="answer-input"
+            type="text"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Введите ответ"
+          />
+          <div class="action-row">
+            <button id="checkBtn" class="primary-btn">Проверить</button>
+            <button id="showAnswerBtn" class="ghost-btn">Показать ответ</button>
+            <button id="speakWordBtn" class="ghost-btn">🔊 Слово</button>
+          </div>
+        </div>
+
+        <div class="answer-zone hidden" id="selfArea">
+          <div class="action-row big-row">
+            <button id="knowBtn" class="success-btn">Знаю</button>
+            <button id="dontKnowBtn" class="danger-btn">Не знаю</button>
+            <button id="showAnswerSelfBtn" class="ghost-btn">Показать ответ</button>
+          </div>
+        </div>
+
+        <div class="answer-zone hidden" id="speakingArea">
+          <div class="speech-box">
+            <div class="speech-title">Ответ голосом</div>
+            <div class="speech-text" id="speechCaptured">Пока пусто</div>
+          </div>
+          <div class="action-row">
+            <button id="startVoiceBtn" class="primary-btn">🎤 Говорить</button>
+            <button id="checkVoiceBtn" class="ghost-btn">Проверить голос</button>
+            <button id="showAnswerVoiceBtn" class="ghost-btn">Показать ответ</button>
+          </div>
+        </div>
+
+        <div class="feedback hidden" id="feedbackBox"></div>
+
+        <div class="solution-box hidden" id="solutionBox">
+          <div class="solution-title">Правильный ответ</div>
+          <div class="solution-main" id="solutionMain"></div>
+          <div class="solution-extra" id="solutionExtra"></div>
+        </div>
+
+        <div class="next-row">
+          <button id="nextBtn" class="primary-btn hidden">Следующее</button>
+        </div>
+      </section>
+
+      <section class="finish-card hidden" id="finishCard">
+        <h2>Сессия завершена</h2>
+        <p class="finish-text" id="finishText"></p>
+        <div class="finish-actions">
+          <button id="restartBtn" class="primary-btn">Новая тренировка</button>
+          <button id="openSettingsFinishBtn" class="ghost-btn">Изменить настройки</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
