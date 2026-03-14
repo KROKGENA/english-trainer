@@ -32,36 +32,34 @@
           <div class="brand__content">
             <div class="brand__eyebrow">English daily trainer</div>
             <h1 class="brand__title">English Trainer</h1>
-            <p class="brand__subtitle">
-              Слова, смысл, практика и путь к реальному английскому
-            </p>
+            <p class="brand__subtitle">Слова, смысл, практика и путь к реальному английскому</p>
           </div>
         </div>
 
         <div class="topbar__actions">
-          <button class="ui-btn ui-btn--glass" type="button">
+          <button class="ui-btn ui-btn--glass" type="button" id="settingsToggleBtn">
             <span class="ui-btn__icon">⚙️</span>
             <span>Настройки</span>
           </button>
 
-          <button class="ui-btn ui-btn--primary" type="button">
+          <button class="ui-btn ui-btn--primary" type="button" id="startBtn">
             <span class="ui-btn__icon">▶</span>
             <span>Начать</span>
           </button>
         </div>
       </header>
 
-      <section class="hero-panel">
+      <section class="hero-panel" id="heroPanel">
         <div class="hero-panel__left">
           <div class="hero-chip-row">
             <div class="hero-chip">
               <span class="hero-chip__label">Текущий режим</span>
-              <span class="hero-chip__value">Mixed Training</span>
+              <span class="hero-chip__value" id="chipMode">Mixed Training</span>
             </div>
 
             <div class="hero-chip">
               <span class="hero-chip__label">Сегодня</span>
-              <span class="hero-chip__value">12 заданий</span>
+              <span class="hero-chip__value" id="chipToday">12 заданий</span>
             </div>
 
             <div class="hero-chip">
@@ -74,14 +72,14 @@
             <div class="progress-card__top">
               <div>
                 <div class="progress-card__label">Прогресс тренировки</div>
-                <div class="progress-card__value">3 / 12</div>
+                <div class="progress-card__value" id="progressValue">1 / 12</div>
               </div>
 
-              <div class="progress-card__percent">25%</div>
+              <div class="progress-card__percent" id="progressPercent">8%</div>
             </div>
 
             <div class="progress-bar">
-              <div class="progress-bar__fill" style="width: 25%;"></div>
+              <div class="progress-bar__fill" id="progressFill" style="width: 8%;"></div>
             </div>
           </div>
         </div>
@@ -89,38 +87,38 @@
         <aside class="hero-stats">
           <article class="stat-card">
             <div class="stat-card__label">Верно</div>
-            <div class="stat-card__value stat-card__value--success">8</div>
+            <div class="stat-card__value stat-card__value--success" id="statCorrect">0</div>
           </article>
 
           <article class="stat-card">
             <div class="stat-card__label">Ошибки</div>
-            <div class="stat-card__value stat-card__value--danger">3</div>
+            <div class="stat-card__value stat-card__value--danger" id="statWrong">0</div>
           </article>
 
           <article class="stat-card">
             <div class="stat-card__label">Повторить</div>
-            <div class="stat-card__value">5</div>
+            <div class="stat-card__value" id="statRepeat">0</div>
           </article>
         </aside>
       </section>
 
       <section class="workspace">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebarPanel">
           <div class="sidebar-card">
             <div class="sidebar-card__title">Направления</div>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="direction" value="en_ru" checked />
               <span>English → Russian</span>
             </label>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="direction" value="ru_en" />
               <span>Russian → English</span>
             </label>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="direction" value="en_en" />
               <span>English → English</span>
             </label>
           </div>
@@ -129,17 +127,17 @@
             <div class="sidebar-card__title">Способы ответа</div>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="answerMode" value="typing" checked />
               <span>Ввод</span>
             </label>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="answerMode" value="self" />
               <span>Знаю / Не знаю</span>
             </label>
 
             <label class="toggle-row">
-              <input type="checkbox" checked />
+              <input type="radio" name="answerMode" value="voice" />
               <span>Голос</span>
             </label>
           </div>
@@ -158,15 +156,15 @@
         <section class="trainer-stage">
           <div class="task-toolbar">
             <div class="task-badges">
-              <div class="task-badge">EN → RU</div>
-              <div class="task-badge task-badge--soft">Typing</div>
+              <div class="task-badge" id="badgeDirection">EN → RU</div>
+              <div class="task-badge task-badge--soft" id="badgeMode">Typing</div>
               <div class="task-badge task-badge--soft">Logistics</div>
             </div>
 
             <div class="task-toolbar__actions">
-              <button class="icon-btn" type="button" aria-label="Озвучить">🔊</button>
-              <button class="icon-btn" type="button" aria-label="Избранное">☆</button>
-              <button class="icon-btn" type="button" aria-label="Подсказка">?</button>
+              <button class="icon-btn" type="button" id="playWordBtn" aria-label="Озвучить">🔊</button>
+              <button class="icon-btn" type="button" id="favoriteBtn" aria-label="Избранное">☆</button>
+              <button class="icon-btn" type="button" id="hintBtn" aria-label="Подсказка">?</button>
             </div>
           </div>
 
@@ -174,40 +172,40 @@
             <div class="trainer-card__visual">
               <div class="word-illustration">
                 <div class="word-illustration__glow"></div>
-                <div class="word-illustration__icon">🚚</div>
+                <div class="word-illustration__icon" id="wordIcon">🚚</div>
               </div>
 
               <div class="word-meta">
-                <div class="word-meta__label">Переведи слово</div>
-                <h2 class="word-meta__main">driver</h2>
-                <p class="word-meta__sub">
+                <div class="word-meta__label" id="wordTaskLabel">Переведи слово</div>
+                <h2 class="word-meta__main" id="wordMain">driver</h2>
+                <p class="word-meta__sub" id="wordSub">
                   Представь образ, произнеси слово про себя и только потом отвечай
                 </p>
               </div>
             </div>
 
-            <div class="meaning-card">
+            <div class="meaning-card" id="meaningCard">
               <div class="meaning-card__title">English definition</div>
-              <div class="meaning-card__text">
+              <div class="meaning-card__text" id="meaningText">
                 a person who drives a car, truck, or another vehicle
               </div>
             </div>
 
-            <div class="example-card">
+            <div class="example-card" id="exampleCard">
               <div class="example-card__title">Example</div>
-              <div class="example-card__text">
+              <div class="example-card__text" id="exampleText">
                 The driver arrived at the warehouse at 9 a.m.
               </div>
             </div>
 
             <div class="answer-panel">
               <div class="answer-panel__tabs">
-                <button class="answer-tab answer-tab--active" type="button">Ввод</button>
-                <button class="answer-tab" type="button">Знаю / Не знаю</button>
-                <button class="answer-tab" type="button">Голос</button>
+                <button class="answer-tab answer-tab--active" type="button" data-mode-tab="typing">Ввод</button>
+                <button class="answer-tab" type="button" data-mode-tab="self">Знаю / Не знаю</button>
+                <button class="answer-tab" type="button" data-mode-tab="voice">Голос</button>
               </div>
 
-              <div class="answer-mode answer-mode--typing">
+              <div class="answer-mode answer-mode--typing" id="typingMode">
                 <label class="input-label" for="answerInput">Твой ответ</label>
 
                 <div class="input-shell">
@@ -220,25 +218,25 @@
                     autocapitalize="off"
                     spellcheck="false"
                   />
-                  <button class="input-shell__action" type="button" aria-label="Проверить">↵</button>
+                  <button class="input-shell__action" type="button" id="checkBtn" aria-label="Проверить">↵</button>
                 </div>
 
                 <div class="quick-hints">
-                  <button class="hint-chip" type="button">Подсказка</button>
-                  <button class="hint-chip" type="button">Показать ответ</button>
-                  <button class="hint-chip" type="button">Слушать</button>
+                  <button class="hint-chip" type="button" id="smallHintBtn">Подсказка</button>
+                  <button class="hint-chip" type="button" id="showAnswerBtn">Показать ответ</button>
+                  <button class="hint-chip" type="button" id="listenBtn">Слушать</button>
                 </div>
               </div>
 
-              <div class="answer-mode answer-mode--self hidden">
+              <div class="answer-mode answer-mode--self hidden" id="selfMode">
                 <div class="self-check-grid">
-                  <button class="decision-card decision-card--good" type="button">
+                  <button class="decision-card decision-card--good" type="button" id="knowBtn">
                     <span class="decision-card__icon">✅</span>
                     <span class="decision-card__title">Знаю</span>
                     <span class="decision-card__text">Уверенно помню слово</span>
                   </button>
 
-                  <button class="decision-card decision-card--bad" type="button">
+                  <button class="decision-card decision-card--bad" type="button" id="dontKnowBtn">
                     <span class="decision-card__icon">📌</span>
                     <span class="decision-card__title">Не знаю</span>
                     <span class="decision-card__text">Нужно повторить позже</span>
@@ -246,15 +244,15 @@
                 </div>
               </div>
 
-              <div class="answer-mode answer-mode--voice hidden">
+              <div class="answer-mode answer-mode--voice hidden" id="voiceMode">
                 <div class="voice-panel">
                   <div class="voice-panel__top">
                     <div>
                       <div class="voice-panel__label">Голосовой ответ</div>
-                      <div class="voice-panel__status">Микрофон готов</div>
+                      <div class="voice-panel__status" id="voiceStatus">Микрофон готов</div>
                     </div>
 
-                    <button class="voice-record-btn" type="button">🎤</button>
+                    <button class="voice-record-btn" type="button" id="voiceBtn">🎤</button>
                   </div>
 
                   <div class="voice-wave">
@@ -266,45 +264,45 @@
                     <span></span>
                   </div>
 
-                  <div class="voice-result">
+                  <div class="voice-result" id="voiceResult">
                     Здесь будет распознанный текст ответа
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="feedback-panel feedback-panel--success">
-              <div class="feedback-panel__icon">✔</div>
+            <div class="feedback-panel hidden" id="feedbackPanel">
+              <div class="feedback-panel__icon" id="feedbackIcon">✔</div>
               <div class="feedback-panel__content">
-                <div class="feedback-panel__title">Правильно</div>
-                <div class="feedback-panel__text">
+                <div class="feedback-panel__title" id="feedbackTitle">Правильно</div>
+                <div class="feedback-panel__text" id="feedbackText">
                   Отлично. Можно идти дальше или повторить слово ещё раз.
                 </div>
               </div>
             </div>
 
-            <div class="solution-panel">
+            <div class="solution-panel hidden" id="solutionPanel">
               <div class="solution-panel__header">
                 <div class="solution-panel__title">Правильный ответ</div>
-                <button class="solution-panel__play" type="button">🔊</button>
+                <button class="solution-panel__play" type="button" id="playAnswerBtn">🔊</button>
               </div>
 
-              <div class="solution-panel__main">водитель</div>
+              <div class="solution-panel__main" id="solutionMain">водитель</div>
 
               <div class="solution-panel__grid">
                 <div class="solution-item">
                   <div class="solution-item__label">English</div>
-                  <div class="solution-item__value">driver</div>
+                  <div class="solution-item__value" id="solutionEnglish">driver</div>
                 </div>
 
                 <div class="solution-item">
                   <div class="solution-item__label">Russian</div>
-                  <div class="solution-item__value">водитель</div>
+                  <div class="solution-item__value" id="solutionRussian">водитель</div>
                 </div>
 
                 <div class="solution-item">
                   <div class="solution-item__label">Meaning</div>
-                  <div class="solution-item__value">
+                  <div class="solution-item__value" id="solutionMeaning">
                     a person who drives a vehicle
                   </div>
                 </div>
@@ -312,13 +310,13 @@
             </div>
 
             <div class="trainer-card__footer">
-              <div class="keyboard-tip">
+              <div class="keyboard-tip" id="keyboardTip">
                 Enter — проверить · Space — следующее
               </div>
 
               <div class="footer-actions">
-                <button class="ui-btn ui-btn--glass" type="button">Пропустить</button>
-                <button class="ui-btn ui-btn--primary" type="button">Следующее</button>
+                <button class="ui-btn ui-btn--glass" type="button" id="skipBtn">Пропустить</button>
+                <button class="ui-btn ui-btn--primary" type="button" id="nextBtn">Следующее</button>
               </div>
             </div>
           </article>
@@ -326,7 +324,7 @@
           <section class="bottom-panels">
             <article class="mini-card">
               <div class="mini-card__title">Сложные слова</div>
-              <div class="mini-list">
+              <div class="mini-list" id="hardWordsList">
                 <button class="mini-list__item" type="button">shipment</button>
                 <button class="mini-list__item" type="button">invoice</button>
                 <button class="mini-list__item" type="button">loading</button>
@@ -344,5 +342,7 @@
       </section>
     </main>
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
