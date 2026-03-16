@@ -1,97 +1,203 @@
-const words = [
-  {
-    english: "driver",
-    russian: "водитель",
-    definition: "a person who drives a car, truck, or another vehicle",
-    example: "The driver arrived at the warehouse at 9 a.m.",
-    icon: "🚚"
-  },
-  {
-    english: "warehouse",
-    russian: "склад",
-    definition: "a building where goods are stored",
-    example: "The goods are waiting in the warehouse.",
-    icon: "🏭"
-  },
-  {
-    english: "delivery",
-    russian: "доставка",
-    definition: "the act of taking goods to a customer or another place",
-    example: "The delivery will arrive tomorrow.",
-    icon: "📦"
-  },
-  {
-    english: "order",
-    russian: "заказ",
-    definition: "a request from a customer to buy goods or services",
-    example: "We received a large order today.",
-    icon: "📋"
-  },
-  {
-    english: "client",
-    russian: "клиент",
-    definition: "a person or company that buys goods or services",
-    example: "The client is waiting for the documents.",
-    icon: "🤝"
-  },
-  {
-    english: "loading",
-    russian: "погрузка",
-    definition: "the process of putting goods into a vehicle",
-    example: "Loading starts at 8 a.m.",
-    icon: "🏗️"
-  }
-];
-
-const state = {
-  index: 0,
-  direction: "en_ru",
-  mode: "typing",
-  correct: 0,
-  wrong: 0,
-  repeat: 0,
-  settingsOpen: false,
-  answered: false,
-  voiceText: ""
+const appData = {
+  words: [
+    {
+      type: "Words",
+      skill: "Meaning",
+      title: "river",
+      text: "The river is calm. The morning is bright and fresh.",
+      context: "A river is a natural flow of water. You can see it, hear it, and follow it.",
+      example: "The boat is on the river.",
+      grammar: "Use the with specific things: the river, the boat, the morning.",
+      meaning: "a long natural stream of water",
+      story: "J., George, Harris, and Montmorency travel on the river.",
+      emoji: "🌊",
+      answer: "river",
+      hint: "It is water, but not the sea.",
+      listenText: "river"
+    },
+    {
+      type: "Words",
+      skill: "Meaning",
+      title: "boat",
+      text: "The boat is small, light, and ready for the trip.",
+      context: "A boat moves on water. It can carry people and bags.",
+      example: "The men sit in the boat.",
+      grammar: "Use a for one thing in general: a boat. Use the for a known one: the boat.",
+      meaning: "a small vehicle for traveling on water",
+      story: "The three men travel in a boat with Montmorency.",
+      emoji: "🚣",
+      answer: "boat",
+      hint: "It moves on a river.",
+      listenText: "boat"
+    },
+    {
+      type: "Words",
+      skill: "Meaning",
+      title: "driver",
+      text: "A driver works early and moves goods from place to place.",
+      context: "A driver drives a car, van, truck, or bus.",
+      example: "The driver is late today.",
+      grammar: "Use a before jobs in general: a driver, a teacher, a pilot.",
+      meaning: "a person who drives a vehicle",
+      story: "In work scenes, the driver brings the goods to the warehouse.",
+      emoji: "🚚",
+      answer: "driver",
+      hint: "This person drives.",
+      listenText: "driver"
+    },
+    {
+      type: "Words",
+      skill: "Meaning",
+      title: "warehouse",
+      text: "The warehouse is big, bright, and full of boxes.",
+      context: "A warehouse is a place where goods are stored.",
+      example: "The driver is at the warehouse.",
+      grammar: "Use the when the place is already clear in the story: the warehouse.",
+      meaning: "a building where goods are stored",
+      story: "The work team checks goods in the warehouse.",
+      emoji: "🏬",
+      answer: "warehouse",
+      hint: "It is a building for goods.",
+      listenText: "warehouse"
+    },
+    {
+      type: "Grammar",
+      skill: "Articles",
+      title: "the river",
+      text: "Use the when both people know the thing.",
+      context: "The river, the boat, the dog — these are clear in the story.",
+      example: "The boat is on the river.",
+      grammar: "the = a specific thing",
+      meaning: "specific article",
+      story: "J. talks about the river because everyone knows which river he means.",
+      emoji: "📘",
+      answer: "the",
+      hint: "This article points to a specific thing.",
+      listenText: "the river"
+    },
+    {
+      type: "Grammar",
+      skill: "Pronouns",
+      title: "he",
+      text: "Use he for one male person.",
+      context: "J. is a man. George is a man. Harris is a man.",
+      example: "He is tired.",
+      grammar: "he = one male person",
+      meaning: "male singular pronoun",
+      story: "George is late. He is still packing.",
+      emoji: "👤",
+      answer: "he",
+      hint: "Male singular pronoun.",
+      listenText: "he"
+    },
+    {
+      type: "Listening",
+      skill: "Sound",
+      title: "Listen and type",
+      text: "Tap Listen. Hear the word. Type what you hear.",
+      context: "Start with short clear words.",
+      example: "river",
+      grammar: "Listening comes before fast speaking.",
+      meaning: "hear and recognize",
+      story: "You hear the word from the story world.",
+      emoji: "🎧",
+      answer: "river",
+      hint: "It is water in nature.",
+      listenText: "river"
+    },
+    {
+      type: "Speaking",
+      skill: "Say it",
+      title: "Speak clearly",
+      text: "Tap the microphone and say the word.",
+      context: "Short words first. Clear rhythm. Calm voice.",
+      example: "boat",
+      grammar: "Speaking grows through repetition.",
+      meaning: "say the word out loud",
+      story: "Say the word as if you are inside the story.",
+      emoji: "🎤",
+      answer: "boat",
+      hint: "A small thing on water.",
+      listenText: "boat"
+    },
+    {
+      type: "Story Mode",
+      skill: "Story",
+      title: "Montmorency",
+      text: "Montmorency is small, lively, and full of character.",
+      context: "He is the dog in the boat story.",
+      example: "Montmorency jumps into the boat.",
+      grammar: "Names do not need an article.",
+      meaning: "the dog in the story",
+      story: "Montmorency is never quiet for long.",
+      emoji: "🐶",
+      answer: "montmorency",
+      hint: "The dog in Three Men in a Boat.",
+      listenText: "Montmorency"
+    }
+  ]
 };
 
-const el = {
-  heroPanel: document.getElementById("heroPanel"),
-  sidebarPanel: document.getElementById("sidebarPanel"),
-  settingsToggleBtn: document.getElementById("settingsToggleBtn"),
-  startBtn: document.getElementById("startBtn"),
+const state = {
+  currentScreen: "words",
+  currentMode: "typing",
+  currentIndexByScreen: {
+    words: 0,
+    grammar: 0,
+    listening: 0,
+    speaking: 0,
+    story: 0
+  },
+  progressByScreen: {
+    words: { done: 0, total: 12 },
+    grammar: { done: 0, total: 12 },
+    listening: { done: 0, total: 12 },
+    speaking: { done: 0, total: 12 },
+    story: { done: 0, total: 12 }
+  },
+  savedItems: new Set(),
+  drawerOpen: false,
+  lastVoiceText: "",
+  currentFiltered: []
+};
 
-  chipMode: document.getElementById("chipMode"),
-  chipToday: document.getElementById("chipToday"),
-  progressValue: document.getElementById("progressValue"),
-  progressPercent: document.getElementById("progressPercent"),
+const els = {
+  menuBtn: document.getElementById("menuBtn"),
+  profileBtn: document.getElementById("profileBtn"),
+  mobileDrawer: document.getElementById("mobileDrawer"),
+  drawerLinks: document.querySelectorAll(".drawer-link"),
+
+  currentModePill: document.getElementById("currentModePill"),
+  currentLevelPill: document.getElementById("currentLevelPill"),
+  todayTitle: document.getElementById("todayTitle"),
+  todaySubtitle: document.getElementById("todaySubtitle"),
+  progressText: document.getElementById("progressText"),
   progressFill: document.getElementById("progressFill"),
-  statCorrect: document.getElementById("statCorrect"),
-  statWrong: document.getElementById("statWrong"),
-  statRepeat: document.getElementById("statRepeat"),
 
-  badgeDirection: document.getElementById("badgeDirection"),
-  badgeMode: document.getElementById("badgeMode"),
-  wordIcon: document.getElementById("wordIcon"),
-  wordTaskLabel: document.getElementById("wordTaskLabel"),
-  wordMain: document.getElementById("wordMain"),
-  wordSub: document.getElementById("wordSub"),
-  meaningText: document.getElementById("meaningText"),
+  lessonTypeBadge: document.getElementById("lessonTypeBadge"),
+  lessonSkillBadge: document.getElementById("lessonSkillBadge"),
+  playBtn: document.getElementById("playBtn"),
+  hintBtn: document.getElementById("hintBtn"),
+  saveBtn: document.getElementById("saveBtn"),
+
+  sceneEmoji: document.getElementById("sceneEmoji"),
+  sceneLabel: document.getElementById("sceneLabel"),
+  mainPrompt: document.getElementById("mainPrompt"),
+  mainPromptText: document.getElementById("mainPromptText"),
+  contextText: document.getElementById("contextText"),
   exampleText: document.getElementById("exampleText"),
-  meaningCard: document.getElementById("meaningCard"),
-  exampleCard: document.getElementById("exampleCard"),
+  miniGrammarText: document.getElementById("miniGrammarText"),
+
+  typingMode: document.getElementById("typingMode"),
+  selfMode: document.getElementById("selfMode"),
+  voiceMode: document.getElementById("voiceMode"),
+  modeTabs: document.querySelectorAll(".mode-tab"),
 
   answerInput: document.getElementById("answerInput"),
   checkBtn: document.getElementById("checkBtn"),
+  showHintBtn: document.getElementById("showHintBtn"),
   showAnswerBtn: document.getElementById("showAnswerBtn"),
   listenBtn: document.getElementById("listenBtn"),
-  smallHintBtn: document.getElementById("smallHintBtn"),
-  playWordBtn: document.getElementById("playWordBtn"),
-  playAnswerBtn: document.getElementById("playAnswerBtn"),
-  favoriteBtn: document.getElementById("favoriteBtn"),
-  hintBtn: document.getElementById("hintBtn"),
-  skipBtn: document.getElementById("skipBtn"),
-  nextBtn: document.getElementById("nextBtn"),
 
   knowBtn: document.getElementById("knowBtn"),
   dontKnowBtn: document.getElementById("dontKnowBtn"),
@@ -100,25 +206,21 @@ const el = {
   voiceStatus: document.getElementById("voiceStatus"),
   voiceResult: document.getElementById("voiceResult"),
 
-  feedbackPanel: document.getElementById("feedbackPanel"),
+  feedbackBox: document.getElementById("feedbackBox"),
   feedbackIcon: document.getElementById("feedbackIcon"),
   feedbackTitle: document.getElementById("feedbackTitle"),
   feedbackText: document.getElementById("feedbackText"),
 
-  solutionPanel: document.getElementById("solutionPanel"),
+  solutionBox: document.getElementById("solutionBox"),
   solutionMain: document.getElementById("solutionMain"),
-  solutionEnglish: document.getElementById("solutionEnglish"),
-  solutionRussian: document.getElementById("solutionRussian"),
+  solutionWord: document.getElementById("solutionWord"),
   solutionMeaning: document.getElementById("solutionMeaning"),
+  solutionStory: document.getElementById("solutionStory"),
+  playAnswerBtn: document.getElementById("playAnswerBtn"),
 
-  keyboardTip: document.getElementById("keyboardTip"),
-
-  typingMode: document.getElementById("typingMode"),
-  selfMode: document.getElementById("selfMode"),
-  voiceMode: document.getElementById("voiceMode"),
-  modeTabs: document.querySelectorAll("[data-mode-tab]"),
-  directionInputs: document.querySelectorAll('input[name="direction"]'),
-  modeInputs: document.querySelectorAll('input[name="answerMode"]')
+  prevBtn: document.getElementById("prevBtn"),
+  skipBtn: document.getElementById("skipBtn"),
+  nextBtn: document.getElementById("nextBtn")
 };
 
 const SpeechRecognitionCtor =
@@ -130,295 +232,280 @@ function normalize(text) {
   return String(text || "")
     .toLowerCase()
     .trim()
-    .replace(/ё/g, "е")
+    .replace(/ё/g, "e")
     .replace(/[.,!?;:"]/g, "")
     .replace(/\s+/g, " ");
 }
 
-function currentWord() {
-  return words[state.index];
+function mapScreenToType(screen) {
+  if (screen === "words") return "Words";
+  if (screen === "grammar") return "Grammar";
+  if (screen === "listening") return "Listening";
+  if (screen === "speaking") return "Speaking";
+  return "Story Mode";
 }
 
-function getDirectionLabel(direction) {
-  if (direction === "en_ru") return "EN → RU";
-  if (direction === "ru_en") return "RU → EN";
-  return "EN → EN";
+function getItemsForCurrentScreen() {
+  const type = mapScreenToType(state.currentScreen);
+  return appData.words.filter((item) => item.type === type);
 }
 
-function getModeLabel(mode) {
-  if (mode === "typing") return "Typing";
-  if (mode === "self") return "Know / Don't know";
-  return "Voice";
-}
+function getCurrentItem() {
+  state.currentFiltered = getItemsForCurrentScreen();
+  const list = state.currentFiltered;
 
-function getCorrectAnswer(word) {
-  if (state.direction === "en_ru") return word.russian;
-  if (state.direction === "ru_en") return word.english;
-  return word.english;
-}
+  if (!list.length) return null;
 
-function getPromptData(word) {
-  if (state.direction === "en_ru") {
-    return {
-      label: "Переведи слово",
-      main: word.english,
-      sub: "Представь образ, произнеси слово про себя и только потом отвечай"
-    };
+  let index = state.currentIndexByScreen[state.currentScreen] || 0;
+  if (index >= list.length) {
+    index = 0;
+    state.currentIndexByScreen[state.currentScreen] = 0;
   }
 
-  if (state.direction === "ru_en") {
-    return {
-      label: "Переведи на английский",
-      main: word.russian,
-      sub: "Вспомни английское слово и введи его без подсказки"
-    };
-  }
-
-  return {
-    label: "Пойми значение на английском",
-    main: word.english,
-    sub: "Опирайся на смысл, а не только на перевод"
-  };
+  return list[index];
 }
 
 function updateProgress() {
-  const done = state.index + 1;
-  const total = words.length;
-  const percent = Math.round((done / total) * 100);
+  const list = getItemsForCurrentScreen();
+  const current = (state.currentIndexByScreen[state.currentScreen] || 0) + 1;
+  const total = list.length || 1;
+  const percent = Math.round((current / total) * 100);
 
-  el.progressValue.textContent = `${done} / ${total}`;
-  el.progressPercent.textContent = `${percent}%`;
-  el.progressFill.style.width = `${percent}%`;
-
-  el.statCorrect.textContent = state.correct;
-  el.statWrong.textContent = state.wrong;
-  el.statRepeat.textContent = state.repeat;
-  el.chipToday.textContent = `${total} заданий`;
-  el.chipMode.textContent = `${getDirectionLabel(state.direction)} · ${getModeLabel(state.mode)}`;
+  els.progressText.textContent = `${current} / ${total}`;
+  els.progressFill.style.width = `${percent}%`;
 }
 
-function showFeedback(type, title, text) {
-  el.feedbackPanel.classList.remove("hidden");
-  el.feedbackTitle.textContent = title;
-  el.feedbackText.textContent = text;
+function updateHeader() {
+  const labels = {
+    words: { title: "Simple Living English", subtitle: "Learn through scenes, actions, and easy meaning." },
+    grammar: { title: "Small Grammar Steps", subtitle: "Build articles, pronouns, questions, and tense patterns." },
+    listening: { title: "Listening Ears", subtitle: "Hear short words and sentences clearly." },
+    speaking: { title: "Speaking Practice", subtitle: "Say words and short lines with confidence." },
+    story: { title: "Story World", subtitle: "Meet J., George, Harris, and Montmorency." }
+  };
 
-  if (type === "success") {
-    el.feedbackIcon.textContent = "✔";
-  } else if (type === "error") {
-    el.feedbackIcon.textContent = "✘";
-  } else {
-    el.feedbackIcon.textContent = "•";
-  }
+  els.currentModePill.textContent = mapScreenToType(state.currentScreen);
+  els.currentLevelPill.textContent =
+    state.currentScreen === "words" ? "Starter" :
+    state.currentScreen === "grammar" ? "Core" :
+    state.currentScreen === "listening" ? "Audio" :
+    state.currentScreen === "speaking" ? "Voice" : "Book";
+
+  els.todayTitle.textContent = labels[state.currentScreen].title;
+  els.todaySubtitle.textContent = labels[state.currentScreen].subtitle;
 }
 
-function hideFeedback() {
-  el.feedbackPanel.classList.add("hidden");
-}
+function renderItem() {
+  const item = getCurrentItem();
+  if (!item) return;
 
-function showSolution() {
-  const word = currentWord();
-
-  el.solutionPanel.classList.remove("hidden");
-  el.solutionMain.textContent = getCorrectAnswer(word);
-  el.solutionEnglish.textContent = word.english;
-  el.solutionRussian.textContent = word.russian;
-  el.solutionMeaning.textContent = word.definition;
-}
-
-function hideSolution() {
-  el.solutionPanel.classList.add("hidden");
-}
-
-function setMode(mode) {
-  state.mode = mode;
-
-  el.modeTabs.forEach((tab) => {
-    tab.classList.toggle("answer-tab--active", tab.dataset.modeTab === mode);
-  });
-
-  el.modeInputs.forEach((input) => {
-    input.checked = input.value === mode;
-  });
-
-  el.typingMode.classList.toggle("hidden", mode !== "typing");
-  el.selfMode.classList.toggle("hidden", mode !== "self");
-  el.voiceMode.classList.toggle("hidden", mode !== "voice");
-
-  if (mode === "typing") {
-    el.keyboardTip.textContent = "Enter — проверить · Space — следующее";
-  } else if (mode === "self") {
-    el.keyboardTip.textContent = "Отметь, знаешь слово или нет";
-  } else {
-    el.keyboardTip.textContent = "Нажми на микрофон и произнеси ответ";
-  }
-
-  el.badgeMode.textContent = getModeLabel(mode);
+  updateHeader();
   updateProgress();
-}
 
-function setDirection(direction) {
-  state.direction = direction;
+  els.lessonTypeBadge.textContent = item.type;
+  els.lessonSkillBadge.textContent = item.skill;
 
-  el.directionInputs.forEach((input) => {
-    input.checked = input.value === direction;
-  });
+  els.sceneEmoji.textContent = item.emoji;
+  els.sceneLabel.textContent = item.type;
+  els.mainPrompt.textContent = item.title;
+  els.mainPromptText.textContent = item.text;
+  els.contextText.textContent = item.context;
+  els.exampleText.textContent = item.example;
+  els.miniGrammarText.innerHTML = item.grammar;
 
-  el.badgeDirection.textContent = getDirectionLabel(direction);
-  renderCard();
-}
-
-function renderCard() {
-  const word = currentWord();
-  const prompt = getPromptData(word);
-
-  state.answered = false;
-  state.voiceText = "";
-
-  el.wordIcon.textContent = word.icon;
-  el.wordTaskLabel.textContent = prompt.label;
-  el.wordMain.textContent = prompt.main;
-  el.wordSub.textContent = prompt.sub;
-  el.meaningText.textContent = word.definition;
-  el.exampleText.textContent = word.example;
-
-  el.answerInput.value = "";
-  el.voiceResult.textContent = "Здесь будет распознанный текст ответа";
-  el.voiceStatus.textContent = "Микрофон готов";
+  els.answerInput.value = "";
+  els.voiceStatus.textContent = "Ready";
+  els.voiceResult.textContent = "Your speech will appear here.";
 
   hideFeedback();
   hideSolution();
-  updateProgress();
+  updateSaveButton();
+  applyScreenDefaults();
+}
 
-  if (state.direction === "en_en") {
-    el.meaningCard.classList.remove("hidden");
-  } else {
-    el.meaningCard.classList.remove("hidden");
-  }
-
-  if (window.innerWidth <= 680) {
-    el.exampleCard.classList.add("hidden");
-  } else {
-    el.exampleCard.classList.remove("hidden");
+function applyScreenDefaults() {
+  if (state.currentScreen === "speaking") {
+    setMode("voice");
+  } else if (state.currentScreen === "listening") {
+    setMode("typing");
   }
 }
 
+function setMode(mode) {
+  state.currentMode = mode;
+
+  els.modeTabs.forEach((tab) => {
+    tab.classList.toggle("mode-tab--active", tab.dataset.mode === mode);
+  });
+
+  els.typingMode.classList.toggle("hidden", mode !== "typing");
+  els.selfMode.classList.toggle("hidden", mode !== "self");
+  els.voiceMode.classList.toggle("hidden", mode !== "voice");
+}
+
+function setScreen(screen) {
+  state.currentScreen = screen;
+
+  els.drawerLinks.forEach((link) => {
+    link.classList.toggle("drawer-link--active", link.dataset.screen === screen);
+  });
+
+  closeDrawer();
+  renderItem();
+}
+
+function nextItem() {
+  const list = getItemsForCurrentScreen();
+  if (!list.length) return;
+
+  state.currentIndexByScreen[state.currentScreen] =
+    (state.currentIndexByScreen[state.currentScreen] + 1) % list.length;
+
+  renderItem();
+}
+
+function prevItem() {
+  const list = getItemsForCurrentScreen();
+  if (!list.length) return;
+
+  let nextIndex = state.currentIndexByScreen[state.currentScreen] - 1;
+  if (nextIndex < 0) nextIndex = list.length - 1;
+  state.currentIndexByScreen[state.currentScreen] = nextIndex;
+
+  renderItem();
+}
+
+function skipItem() {
+  showFeedback("•", "Skipped", "Move on. You can return to it later.");
+  setTimeout(() => {
+    nextItem();
+  }, 250);
+}
+
+function showFeedback(icon, title, text) {
+  els.feedbackIcon.textContent = icon;
+  els.feedbackTitle.textContent = title;
+  els.feedbackText.textContent = text;
+  els.feedbackBox.classList.remove("hidden");
+}
+
+function hideFeedback() {
+  els.feedbackBox.classList.add("hidden");
+}
+
+function showSolution() {
+  const item = getCurrentItem();
+  if (!item) return;
+
+  els.solutionMain.textContent = item.answer;
+  els.solutionWord.textContent = item.title;
+  els.solutionMeaning.textContent = item.meaning;
+  els.solutionStory.textContent = item.story;
+  els.solutionBox.classList.remove("hidden");
+}
+
+function hideSolution() {
+  els.solutionBox.classList.add("hidden");
+}
+
 function checkTypingAnswer() {
-  const word = currentWord();
-  const user = normalize(el.answerInput.value);
-  const correct = normalize(getCorrectAnswer(word));
+  const item = getCurrentItem();
+  if (!item) return;
+
+  const user = normalize(els.answerInput.value);
+  const correct = normalize(item.answer);
 
   if (!user) {
-    showFeedback("error", "Пустой ответ", "Сначала введи ответ.");
+    showFeedback("?", "Type something", "Please enter an answer first.");
     return;
   }
 
   if (user === correct) {
-    state.correct += 1;
-    state.answered = true;
-    showFeedback("success", "Правильно", "Отлично. Ответ верный.");
+    showFeedback("✔", "Correct", "Good. Your answer matches.");
     hideSolution();
   } else {
-    state.wrong += 1;
-    state.repeat += 1;
-    state.answered = true;
-    showFeedback("error", "Неправильно", "Посмотри правильный ответ ниже.");
+    showFeedback("✘", "Not quite", "Look at the answer and try again.");
     showSolution();
   }
-
-  updateProgress();
 }
 
 function markKnow() {
-  state.correct += 1;
-  state.answered = true;
-  showFeedback("success", "Отмечено", "Хорошо. Слово засчитано как знакомое.");
+  showFeedback("✔", "Good", "Nice. This card looks familiar to you.");
   hideSolution();
-  updateProgress();
 }
 
 function markDontKnow() {
-  state.wrong += 1;
-  state.repeat += 1;
-  state.answered = true;
-  showFeedback("error", "Отмечено", "Это слово добавлено на повтор.");
+  showFeedback("✘", "Keep it", "This card should come back again later.");
   showSolution();
-  updateProgress();
-}
-
-function nextWord() {
-  state.index += 1;
-  if (state.index >= words.length) {
-    state.index = 0;
-  }
-  renderCard();
-}
-
-function skipWord() {
-  showFeedback("error", "Пропущено", "Переходим к следующему слову.");
-  setTimeout(() => {
-    nextWord();
-  }, 250);
-}
-
-function toggleSettings() {
-  state.settingsOpen = !state.settingsOpen;
-  el.heroPanel.classList.toggle("panel-collapsed", !state.settingsOpen);
-  el.sidebarPanel.classList.toggle("panel-collapsed", !state.settingsOpen);
 }
 
 function showHint() {
-  const word = currentWord();
+  const item = getCurrentItem();
+  if (!item) return;
 
-  if (state.direction === "en_ru") {
-    showFeedback("success", "Подсказка", `Первая буква ответа: ${word.russian[0].toUpperCase()}`);
-  } else {
-    showFeedback("success", "Подсказка", `Первая буква ответа: ${word.english[0].toUpperCase()}`);
-  }
+  showFeedback("?", "Hint", item.hint);
+}
+
+function showAnswer() {
+  showSolution();
+  showFeedback("•", "Answer shown", "Look at it, say it, and move on.");
 }
 
 function speakText(text, lang = "en-US") {
   if (!("speechSynthesis" in window)) {
-    showFeedback("error", "Нет озвучки", "Браузер не поддерживает озвучку.");
+    showFeedback("✘", "No audio", "This browser does not support speech playback.");
     return;
   }
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = lang;
   utterance.rate = 0.92;
+  utterance.pitch = 1;
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
 }
 
-function speakWord() {
-  const word = currentWord();
+function playPromptAudio() {
+  const item = getCurrentItem();
+  if (!item) return;
+  speakText(item.listenText || item.title, "en-US");
+}
 
-  if (state.direction === "en_ru" || state.direction === "en_en") {
-    speakText(word.english, "en-US");
+function playAnswerAudio() {
+  const item = getCurrentItem();
+  if (!item) return;
+  speakText(item.answer, "en-US");
+}
+
+function toggleSave() {
+  const item = getCurrentItem();
+  if (!item) return;
+
+  const key = `${item.type}:${item.title}`;
+
+  if (state.savedItems.has(key)) {
+    state.savedItems.delete(key);
+    showFeedback("☆", "Removed", "This item is no longer saved.");
   } else {
-    speakText(word.english, "en-US");
+    state.savedItems.add(key);
+    showFeedback("★", "Saved", "This item is now in your saved list.");
   }
+
+  updateSaveButton();
 }
 
-function speakAnswer() {
-  const word = currentWord();
+function updateSaveButton() {
+  const item = getCurrentItem();
+  if (!item) return;
 
-  if (state.direction === "en_ru") {
-    speakText(word.russian, "ru-RU");
-  } else {
-    speakText(word.english, "en-US");
-  }
+  const key = `${item.type}:${item.title}`;
+  els.saveBtn.textContent = state.savedItems.has(key) ? "★" : "☆";
 }
 
-function toggleFavorite() {
-  const active = el.favoriteBtn.textContent === "★";
-  el.favoriteBtn.textContent = active ? "☆" : "★";
-  showFeedback("success", active ? "Убрано" : "Сохранено", active ? "Слово убрано из избранного." : "Слово добавлено в избранное.");
-}
-
-function startVoice() {
+function startVoiceRecognition() {
   if (!SpeechRecognitionCtor) {
-    el.voiceStatus.textContent = "Браузер не поддерживает голосовой ввод";
-    el.voiceResult.textContent = "Попробуй Chrome на телефоне или ПК";
+    els.voiceStatus.textContent = "Not supported";
+    els.voiceResult.textContent = "Try Chrome on phone or desktop.";
     return;
   }
 
@@ -427,123 +514,101 @@ function startVoice() {
   }
 
   recognition = new SpeechRecognitionCtor();
-  recognition.lang = state.direction === "en_ru" ? "ru-RU" : "en-US";
+  recognition.lang = "en-US";
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-  el.voiceStatus.textContent = "Слушаю...";
-  el.voiceResult.textContent = "Говори сейчас";
+  els.voiceStatus.textContent = "Listening...";
+  els.voiceResult.textContent = "Speak now.";
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    state.voiceText = transcript;
-    el.voiceStatus.textContent = "Ответ получен";
-    el.voiceResult.textContent = transcript;
+    state.lastVoiceText = transcript;
+    els.voiceStatus.textContent = "Received";
+    els.voiceResult.textContent = transcript;
 
-    const correct = normalize(getCorrectAnswer(currentWord()));
+    const item = getCurrentItem();
     const spoken = normalize(transcript);
+    const correct = normalize(item.answer);
 
     if (spoken === correct) {
-      state.correct += 1;
-      state.answered = true;
-      showFeedback("success", "Правильно", "Голосовой ответ совпал.");
+      showFeedback("✔", "Correct", "Your spoken answer matches.");
       hideSolution();
     } else {
-      state.wrong += 1;
-      state.repeat += 1;
-      state.answered = true;
-      showFeedback("error", "Неправильно", "Голосовой ответ не совпал.");
+      showFeedback("✘", "Not quite", "Your spoken answer is different.");
       showSolution();
     }
-
-    updateProgress();
   };
 
   recognition.onerror = () => {
-    el.voiceStatus.textContent = "Ошибка распознавания";
-    el.voiceResult.textContent = "Попробуй ещё раз";
+    els.voiceStatus.textContent = "Error";
+    els.voiceResult.textContent = "Please try again.";
   };
 
   recognition.start();
 }
 
+function toggleDrawer() {
+  state.drawerOpen = !state.drawerOpen;
+  els.mobileDrawer.classList.toggle("hidden", !state.drawerOpen);
+}
+
+function closeDrawer() {
+  state.drawerOpen = false;
+  els.mobileDrawer.classList.add("hidden");
+}
+
 function bindEvents() {
-  el.settingsToggleBtn.addEventListener("click", toggleSettings);
-  el.startBtn.addEventListener("click", () => {
-    state.index = 0;
-    state.correct = 0;
-    state.wrong = 0;
-    state.repeat = 0;
-    renderCard();
-    showFeedback("success", "Тренировка начата", "Можно отвечать.");
+  els.menuBtn.addEventListener("click", toggleDrawer);
+
+  document.addEventListener("click", (event) => {
+    const clickInsideDrawer = els.mobileDrawer.contains(event.target);
+    const clickOnMenu = els.menuBtn.contains(event.target);
+
+    if (state.drawerOpen && !clickInsideDrawer && !clickOnMenu) {
+      closeDrawer();
+    }
   });
 
-  el.checkBtn.addEventListener("click", checkTypingAnswer);
-  el.showAnswerBtn.addEventListener("click", () => {
-    showSolution();
-    showFeedback("success", "Ответ открыт", "Посмотри правильный вариант.");
+  els.drawerLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      setScreen(link.dataset.screen);
+    });
   });
 
-  el.smallHintBtn.addEventListener("click", showHint);
-  el.hintBtn.addEventListener("click", showHint);
-  el.listenBtn.addEventListener("click", speakWord);
-  el.playWordBtn.addEventListener("click", speakWord);
-  el.playAnswerBtn.addEventListener("click", speakAnswer);
-  el.favoriteBtn.addEventListener("click", toggleFavorite);
+  els.modeTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setMode(tab.dataset.mode);
+    });
+  });
 
-  el.knowBtn.addEventListener("click", markKnow);
-  el.dontKnowBtn.addEventListener("click", markDontKnow);
+  els.checkBtn.addEventListener("click", checkTypingAnswer);
+  els.showHintBtn.addEventListener("click", showHint);
+  els.hintBtn.addEventListener("click", showHint);
+  els.showAnswerBtn.addEventListener("click", showAnswer);
 
-  el.nextBtn.addEventListener("click", nextWord);
-  el.skipBtn.addEventListener("click", skipWord);
+  els.playBtn.addEventListener("click", playPromptAudio);
+  els.listenBtn.addEventListener("click", playPromptAudio);
+  els.playAnswerBtn.addEventListener("click", playAnswerAudio);
 
-  el.voiceBtn.addEventListener("click", startVoice);
+  els.saveBtn.addEventListener("click", toggleSave);
 
-  el.answerInput.addEventListener("keydown", (event) => {
+  els.knowBtn.addEventListener("click", markKnow);
+  els.dontKnowBtn.addEventListener("click", markDontKnow);
+
+  els.voiceBtn.addEventListener("click", startVoiceRecognition);
+
+  els.nextBtn.addEventListener("click", nextItem);
+  els.prevBtn.addEventListener("click", prevItem);
+  els.skipBtn.addEventListener("click", skipItem);
+
+  els.answerInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       checkTypingAnswer();
     }
   });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.code === "Space" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
-      event.preventDefault();
-      nextWord();
-    }
-  });
-
-  el.modeTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      setMode(tab.dataset.modeTab);
-    });
-  });
-
-  el.directionInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      setDirection(input.value);
-    });
-  });
-
-  el.modeInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      setMode(input.value);
-    });
-  });
-
-  window.addEventListener("resize", () => {
-    renderCard();
-  });
 }
 
 bindEvents();
+setScreen("words");
 setMode("typing");
-setDirection("en_ru");
-renderCard();
-
-if (window.innerWidth <= 680) {
-  state.settingsOpen = false;
-  el.heroPanel.classList.add("panel-collapsed");
-  el.sidebarPanel.classList.add("panel-collapsed");
-} else {
-  state.settingsOpen = true;
-}
