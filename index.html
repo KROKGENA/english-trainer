@@ -1,344 +1,343 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  />
   <title>English Trainer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <div class="bg-decoration bg-decoration--one"></div>
-    <div class="bg-decoration bg-decoration--two"></div>
-    <div class="bg-decoration bg-decoration--three"></div>
+  <div class="app-shell spring-theme">
 
-    <main class="app">
-      <header class="topbar">
-        <div class="brand">
-          <div class="brand__logo">
-            <svg viewBox="0 0 64 64" aria-hidden="true">
-              <defs>
-                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#73c4ff"></stop>
-                  <stop offset="100%" stop-color="#5b7cff"></stop>
-                </linearGradient>
-              </defs>
-              <rect x="6" y="6" width="52" height="52" rx="18" fill="url(#logoGradient)"></rect>
-              <path d="M20 24h24M20 32h16M20 40h24" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></path>
-              <circle cx="44" cy="32" r="6" fill="#ffffff"></circle>
-            </svg>
-          </div>
+    <main class="mobile-app">
 
-          <div class="brand__content">
-            <div class="brand__eyebrow">English daily trainer</div>
-            <h1 class="brand__title">English Trainer</h1>
-            <p class="brand__subtitle">Слова, смысл, практика и путь к реальному английскому</p>
+      <!-- Top bar -->
+      <header class="mobile-topbar">
+        <button class="topbar-btn" id="menuBtn" type="button" aria-label="Open menu">
+          ☰
+        </button>
+
+        <div class="mobile-brand">
+          <div class="mobile-brand__icon">E</div>
+          <div class="mobile-brand__text">
+            <div class="mobile-brand__eyebrow">Spring English</div>
+            <div class="mobile-brand__title">English Trainer</div>
           </div>
         </div>
 
-        <div class="topbar__actions">
-          <button class="ui-btn ui-btn--glass" type="button" id="settingsToggleBtn">
-            <span class="ui-btn__icon">⚙️</span>
-            <span>Настройки</span>
-          </button>
-
-          <button class="ui-btn ui-btn--primary" type="button" id="startBtn">
-            <span class="ui-btn__icon">▶</span>
-            <span>Начать</span>
-          </button>
-        </div>
+        <button class="topbar-btn" id="profileBtn" type="button" aria-label="Profile">
+          ○
+        </button>
       </header>
 
-      <section class="hero-panel" id="heroPanel">
-        <div class="hero-panel__left">
-          <div class="hero-chip-row">
-            <div class="hero-chip">
-              <span class="hero-chip__label">Текущий режим</span>
-              <span class="hero-chip__value" id="chipMode">Mixed Training</span>
-            </div>
+      <!-- Drawer -->
+      <aside class="mobile-drawer hidden" id="mobileDrawer">
 
-            <div class="hero-chip">
-              <span class="hero-chip__label">Сегодня</span>
-              <span class="hero-chip__value" id="chipToday">12 заданий</span>
-            </div>
+        <section class="drawer-card">
+          <div class="drawer-card__title">Learning Paths</div>
 
-            <div class="hero-chip">
-              <span class="hero-chip__label">Серия</span>
-              <span class="hero-chip__value">7 дней</span>
-            </div>
-          </div>
+          <button class="drawer-link drawer-link--active" type="button" data-screen="words">
+            <span class="drawer-link__icon">🌱</span>
+            <span>Words</span>
+          </button>
 
-          <div class="progress-card">
-            <div class="progress-card__top">
-              <div>
-                <div class="progress-card__label">Прогресс тренировки</div>
-                <div class="progress-card__value" id="progressValue">1 / 12</div>
-              </div>
+          <button class="drawer-link" type="button" data-screen="grammar">
+            <span class="drawer-link__icon">🌿</span>
+            <span>Grammar</span>
+          </button>
 
-              <div class="progress-card__percent" id="progressPercent">8%</div>
-            </div>
+          <button class="drawer-link" type="button" data-screen="listening">
+            <span class="drawer-link__icon">🌤️</span>
+            <span>Listening</span>
+          </button>
 
-            <div class="progress-bar">
-              <div class="progress-bar__fill" id="progressFill" style="width: 8%;"></div>
-            </div>
-          </div>
-        </div>
+          <button class="drawer-link" type="button" data-screen="speaking">
+            <span class="drawer-link__icon">🕊️</span>
+            <span>Speaking</span>
+          </button>
 
-        <aside class="hero-stats">
-          <article class="stat-card">
-            <div class="stat-card__label">Верно</div>
-            <div class="stat-card__value stat-card__value--success" id="statCorrect">0</div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-card__label">Ошибки</div>
-            <div class="stat-card__value stat-card__value--danger" id="statWrong">0</div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-card__label">Повторить</div>
-            <div class="stat-card__value" id="statRepeat">0</div>
-          </article>
-        </aside>
-      </section>
-
-      <section class="workspace">
-        <aside class="sidebar" id="sidebarPanel">
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">Направления</div>
-
-            <label class="toggle-row">
-              <input type="radio" name="direction" value="en_ru" checked />
-              <span>English → Russian</span>
-            </label>
-
-            <label class="toggle-row">
-              <input type="radio" name="direction" value="ru_en" />
-              <span>Russian → English</span>
-            </label>
-
-            <label class="toggle-row">
-              <input type="radio" name="direction" value="en_en" />
-              <span>English → English</span>
-            </label>
-          </div>
-
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">Способы ответа</div>
-
-            <label class="toggle-row">
-              <input type="radio" name="answerMode" value="typing" checked />
-              <span>Ввод</span>
-            </label>
-
-            <label class="toggle-row">
-              <input type="radio" name="answerMode" value="self" />
-              <span>Знаю / Не знаю</span>
-            </label>
-
-            <label class="toggle-row">
-              <input type="radio" name="answerMode" value="voice" />
-              <span>Голос</span>
-            </label>
-          </div>
-
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">Коллекции</div>
-
-            <button class="list-chip list-chip--active" type="button">Base words</button>
-            <button class="list-chip" type="button">Logistics</button>
-            <button class="list-chip" type="button">Warehouse</button>
-            <button class="list-chip" type="button">Office</button>
-            <button class="list-chip" type="button">Speaking</button>
-          </div>
-        </aside>
-
-        <section class="trainer-stage">
-          <div class="task-toolbar">
-            <div class="task-badges">
-              <div class="task-badge" id="badgeDirection">EN → RU</div>
-              <div class="task-badge task-badge--soft" id="badgeMode">Typing</div>
-              <div class="task-badge task-badge--soft">Logistics</div>
-            </div>
-
-            <div class="task-toolbar__actions">
-              <button class="icon-btn" type="button" id="playWordBtn" aria-label="Озвучить">🔊</button>
-              <button class="icon-btn" type="button" id="favoriteBtn" aria-label="Избранное">☆</button>
-              <button class="icon-btn" type="button" id="hintBtn" aria-label="Подсказка">?</button>
-            </div>
-          </div>
-
-          <article class="trainer-card">
-            <div class="trainer-card__visual">
-              <div class="word-illustration">
-                <div class="word-illustration__glow"></div>
-                <div class="word-illustration__icon" id="wordIcon">🚚</div>
-              </div>
-
-              <div class="word-meta">
-                <div class="word-meta__label" id="wordTaskLabel">Переведи слово</div>
-                <h2 class="word-meta__main" id="wordMain">driver</h2>
-                <p class="word-meta__sub" id="wordSub">
-                  Представь образ, произнеси слово про себя и только потом отвечай
-                </p>
-              </div>
-            </div>
-
-            <div class="meaning-card" id="meaningCard">
-              <div class="meaning-card__title">English definition</div>
-              <div class="meaning-card__text" id="meaningText">
-                a person who drives a car, truck, or another vehicle
-              </div>
-            </div>
-
-            <div class="example-card" id="exampleCard">
-              <div class="example-card__title">Example</div>
-              <div class="example-card__text" id="exampleText">
-                The driver arrived at the warehouse at 9 a.m.
-              </div>
-            </div>
-
-            <div class="answer-panel">
-              <div class="answer-panel__tabs">
-                <button class="answer-tab answer-tab--active" type="button" data-mode-tab="typing">Ввод</button>
-                <button class="answer-tab" type="button" data-mode-tab="self">Знаю / Не знаю</button>
-                <button class="answer-tab" type="button" data-mode-tab="voice">Голос</button>
-              </div>
-
-              <div class="answer-mode answer-mode--typing" id="typingMode">
-                <label class="input-label" for="answerInput">Твой ответ</label>
-
-                <div class="input-shell">
-                  <input
-                    id="answerInput"
-                    class="answer-input"
-                    type="text"
-                    placeholder="Введите перевод или слово"
-                    autocomplete="off"
-                    autocapitalize="off"
-                    spellcheck="false"
-                  />
-                  <button class="input-shell__action" type="button" id="checkBtn" aria-label="Проверить">↵</button>
-                </div>
-
-                <div class="quick-hints">
-                  <button class="hint-chip" type="button" id="smallHintBtn">Подсказка</button>
-                  <button class="hint-chip" type="button" id="showAnswerBtn">Показать ответ</button>
-                  <button class="hint-chip" type="button" id="listenBtn">Слушать</button>
-                </div>
-              </div>
-
-              <div class="answer-mode answer-mode--self hidden" id="selfMode">
-                <div class="self-check-grid">
-                  <button class="decision-card decision-card--good" type="button" id="knowBtn">
-                    <span class="decision-card__icon">✅</span>
-                    <span class="decision-card__title">Знаю</span>
-                    <span class="decision-card__text">Уверенно помню слово</span>
-                  </button>
-
-                  <button class="decision-card decision-card--bad" type="button" id="dontKnowBtn">
-                    <span class="decision-card__icon">📌</span>
-                    <span class="decision-card__title">Не знаю</span>
-                    <span class="decision-card__text">Нужно повторить позже</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="answer-mode answer-mode--voice hidden" id="voiceMode">
-                <div class="voice-panel">
-                  <div class="voice-panel__top">
-                    <div>
-                      <div class="voice-panel__label">Голосовой ответ</div>
-                      <div class="voice-panel__status" id="voiceStatus">Микрофон готов</div>
-                    </div>
-
-                    <button class="voice-record-btn" type="button" id="voiceBtn">🎤</button>
-                  </div>
-
-                  <div class="voice-wave">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-
-                  <div class="voice-result" id="voiceResult">
-                    Здесь будет распознанный текст ответа
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="feedback-panel hidden" id="feedbackPanel">
-              <div class="feedback-panel__icon" id="feedbackIcon">✔</div>
-              <div class="feedback-panel__content">
-                <div class="feedback-panel__title" id="feedbackTitle">Правильно</div>
-                <div class="feedback-panel__text" id="feedbackText">
-                  Отлично. Можно идти дальше или повторить слово ещё раз.
-                </div>
-              </div>
-            </div>
-
-            <div class="solution-panel hidden" id="solutionPanel">
-              <div class="solution-panel__header">
-                <div class="solution-panel__title">Правильный ответ</div>
-                <button class="solution-panel__play" type="button" id="playAnswerBtn">🔊</button>
-              </div>
-
-              <div class="solution-panel__main" id="solutionMain">водитель</div>
-
-              <div class="solution-panel__grid">
-                <div class="solution-item">
-                  <div class="solution-item__label">English</div>
-                  <div class="solution-item__value" id="solutionEnglish">driver</div>
-                </div>
-
-                <div class="solution-item">
-                  <div class="solution-item__label">Russian</div>
-                  <div class="solution-item__value" id="solutionRussian">водитель</div>
-                </div>
-
-                <div class="solution-item">
-                  <div class="solution-item__label">Meaning</div>
-                  <div class="solution-item__value" id="solutionMeaning">
-                    a person who drives a vehicle
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="trainer-card__footer">
-              <div class="keyboard-tip" id="keyboardTip">
-                Enter — проверить · Space — следующее
-              </div>
-
-              <div class="footer-actions">
-                <button class="ui-btn ui-btn--glass" type="button" id="skipBtn">Пропустить</button>
-                <button class="ui-btn ui-btn--primary" type="button" id="nextBtn">Следующее</button>
-              </div>
-            </div>
-          </article>
-
-          <section class="bottom-panels">
-            <article class="mini-card">
-              <div class="mini-card__title">Сложные слова</div>
-              <div class="mini-list" id="hardWordsList">
-                <button class="mini-list__item" type="button">shipment</button>
-                <button class="mini-list__item" type="button">invoice</button>
-                <button class="mini-list__item" type="button">loading</button>
-              </div>
-            </article>
-
-            <article class="mini-card">
-              <div class="mini-card__title">Следующий этап</div>
-              <div class="mini-card__text">
-                После слов добавим фразы, короткие диалоги и режим ответа вслух.
-              </div>
-            </article>
-          </section>
+          <button class="drawer-link" type="button" data-screen="story">
+            <span class="drawer-link__icon">📘</span>
+            <span>Story Mode</span>
+          </button>
         </section>
+
+        <section class="drawer-card">
+          <div class="drawer-card__title">Story Mode</div>
+
+          <div class="character-list">
+            <button class="character-chip" type="button">J.</button>
+            <button class="character-chip" type="button">George</button>
+            <button class="character-chip" type="button">Harris</button>
+            <button class="character-chip" type="button">Montmorency</button>
+          </div>
+        </section>
+
+        <section class="drawer-card">
+          <div class="drawer-card__title">Scenes</div>
+
+          <div class="scene-list">
+            <button class="scene-chip scene-chip--active" type="button">Home</button>
+            <button class="scene-chip" type="button">Street</button>
+            <button class="scene-chip" type="button">Shop</button>
+            <button class="scene-chip" type="button">Travel</button>
+            <button class="scene-chip" type="button">Work</button>
+            <button class="scene-chip" type="button">Warehouse</button>
+            <button class="scene-chip" type="button">River</button>
+            <button class="scene-chip" type="button">Boat</button>
+          </div>
+        </section>
+
+        <section class="drawer-card">
+          <div class="drawer-card__title">Focus</div>
+
+          <div class="focus-list">
+            <button class="focus-chip focus-chip--active" type="button">Simple Words</button>
+            <button class="focus-chip" type="button">Daily English</button>
+            <button class="focus-chip" type="button">Logistics English</button>
+            <button class="focus-chip" type="button">Book English</button>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- Main screen -->
+      <section class="screen-frame">
+
+        <!-- Daily header -->
+        <section class="screen-head spring-card">
+          <div class="screen-head__row">
+            <div class="screen-pill" id="currentModePill">Words</div>
+            <div class="screen-pill screen-pill--soft" id="currentLevelPill">Starter</div>
+          </div>
+
+          <div class="screen-head__main">
+            <div class="screen-head__content">
+              <div class="screen-head__label">Today</div>
+              <div class="screen-head__title" id="todayTitle">Simple Living English</div>
+              <div class="screen-head__subtitle" id="todaySubtitle">
+                Learn through scenes, actions, characters, and short stories.
+              </div>
+            </div>
+
+            <div class="streak-badge">
+              <span class="streak-badge__label">Streak</span>
+              <span class="streak-badge__value">7</span>
+            </div>
+          </div>
+
+          <div class="progress-block">
+            <div class="progress-block__top">
+              <span class="progress-block__label">Progress</span>
+              <span class="progress-block__value" id="progressText">1 / 12</span>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-track__fill" id="progressFill" style="width: 8%;"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main lesson -->
+        <section class="lesson-card spring-card">
+
+          <div class="lesson-card__top">
+            <div class="lesson-badges">
+              <div class="lesson-badge" id="lessonTypeBadge">Word Card</div>
+              <div class="lesson-badge lesson-badge--soft" id="lessonSkillBadge">Meaning</div>
+            </div>
+
+            <div class="lesson-actions">
+              <button class="round-btn" id="playBtn" type="button" aria-label="Play audio">🔊</button>
+              <button class="round-btn" id="hintBtn" type="button" aria-label="Show hint">?</button>
+              <button class="round-btn" id="saveBtn" type="button" aria-label="Save item">☆</button>
+            </div>
+          </div>
+
+          <!-- Scene / image / story block -->
+          <div class="scene-card">
+            <div class="scene-card__visual">
+              <div class="scene-card__image" id="sceneEmoji">🌼</div>
+            </div>
+
+            <div class="scene-card__content">
+              <div class="scene-card__label" id="sceneLabel">Scene</div>
+              <h1 class="scene-card__title" id="mainPrompt">river</h1>
+              <p class="scene-card__text" id="mainPromptText">
+                The river is calm. The morning is bright and fresh.
+              </p>
+            </div>
+          </div>
+
+          <!-- Story context -->
+          <div class="context-card spring-soft-card" id="contextCard">
+            <div class="context-card__title">Story Hint</div>
+            <div class="context-card__text" id="contextText">
+              In Story Mode, J., George, Harris, and Montmorency travel together.
+            </div>
+          </div>
+
+          <!-- Example -->
+          <div class="example-card spring-soft-card" id="exampleCard">
+            <div class="example-card__title">Example</div>
+            <div class="example-card__text" id="exampleText">
+              The boat is on the river.
+            </div>
+          </div>
+
+          <!-- Grammar micro card -->
+          <div class="mini-lesson-card spring-soft-card" id="miniGrammarCard">
+            <div class="mini-lesson-card__title">Grammar Focus</div>
+            <div class="mini-lesson-card__text" id="miniGrammarText">
+              Use <strong>the</strong> when both people know the thing: <em>the river</em>, <em>the boat</em>.
+            </div>
+          </div>
+
+          <!-- Typing -->
+          <div class="answer-card answer-card--active" id="typingMode">
+            <div class="answer-card__title">Type your answer</div>
+
+            <div class="answer-input-row">
+              <input
+                id="answerInput"
+                class="answer-input"
+                type="text"
+                placeholder="Type here..."
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+              />
+              <button class="answer-submit-btn" id="checkBtn" type="button" aria-label="Check answer">
+                ↵
+              </button>
+            </div>
+
+            <div class="mini-actions">
+              <button class="mini-btn" id="showHintBtn" type="button">Hint</button>
+              <button class="mini-btn" id="showAnswerBtn" type="button">Show</button>
+              <button class="mini-btn" id="listenBtn" type="button">Listen</button>
+            </div>
+          </div>
+
+          <!-- Self -->
+          <div class="answer-card hidden" id="selfMode">
+            <div class="answer-card__title">Do you know it?</div>
+
+            <div class="decision-grid">
+              <button class="decision-btn decision-btn--good" id="knowBtn" type="button">
+                <span class="decision-btn__icon">🌿</span>
+                <span class="decision-btn__title">I know it</span>
+                <span class="decision-btn__text">Clear and easy</span>
+              </button>
+
+              <button class="decision-btn decision-btn--bad" id="dontKnowBtn" type="button">
+                <span class="decision-btn__icon">🍂</span>
+                <span class="decision-btn__title">Not yet</span>
+                <span class="decision-btn__text">Show it again later</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Voice -->
+          <div class="answer-card hidden" id="voiceMode">
+            <div class="answer-card__title">Speak your answer</div>
+
+            <div class="voice-box">
+              <div class="voice-box__top">
+                <div>
+                  <div class="voice-box__label">Microphone</div>
+                  <div class="voice-box__status" id="voiceStatus">Ready</div>
+                </div>
+
+                <button class="voice-btn" id="voiceBtn" type="button">🎤</button>
+              </div>
+
+              <div class="voice-waves">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="voice-result" id="voiceResult">
+                Your speech will appear here.
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode tabs -->
+          <div class="mode-tabs">
+            <button class="mode-tab mode-tab--active" type="button" data-mode="typing">Type</button>
+            <button class="mode-tab" type="button" data-mode="self">Know</button>
+            <button class="mode-tab" type="button" data-mode="voice">Speak</button>
+          </div>
+
+          <!-- Feedback -->
+          <div class="feedback-box hidden" id="feedbackBox">
+            <div class="feedback-box__icon" id="feedbackIcon">✔</div>
+            <div class="feedback-box__content">
+              <div class="feedback-box__title" id="feedbackTitle">Correct</div>
+              <div class="feedback-box__text" id="feedbackText">
+                Great job. Go to the next card.
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution -->
+          <div class="solution-box hidden" id="solutionBox">
+            <div class="solution-box__top">
+              <div class="solution-box__title">Answer</div>
+              <button class="round-btn round-btn--small" id="playAnswerBtn" type="button">🔊</button>
+            </div>
+
+            <div class="solution-box__main" id="solutionMain">river</div>
+
+            <div class="solution-grid">
+              <div class="solution-item">
+                <div class="solution-item__label">Word</div>
+                <div class="solution-item__value" id="solutionWord">river</div>
+              </div>
+
+              <div class="solution-item">
+                <div class="solution-item__label">Meaning</div>
+                <div class="solution-item__value" id="solutionMeaning">
+                  a long natural stream of water
+                </div>
+              </div>
+
+              <div class="solution-item">
+                <div class="solution-item__label">Story</div>
+                <div class="solution-item__value" id="solutionStory">
+                  The men travel on the river with Montmorency.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom navigation -->
+        <nav class="bottom-bar spring-card">
+          <button class="bottom-bar__btn" id="prevBtn" type="button">
+            <span class="bottom-bar__icon">←</span>
+            <span class="bottom-bar__text">Back</span>
+          </button>
+
+          <button class="bottom-bar__btn bottom-bar__btn--soft" id="skipBtn" type="button">
+            <span class="bottom-bar__icon">•</span>
+            <span class="bottom-bar__text">Skip</span>
+          </button>
+
+          <button class="bottom-bar__btn bottom-bar__btn--primary" id="nextBtn" type="button">
+            <span class="bottom-bar__icon">→</span>
+            <span class="bottom-bar__text">Next</span>
+          </button>
+        </nav>
+
       </section>
     </main>
   </div>
